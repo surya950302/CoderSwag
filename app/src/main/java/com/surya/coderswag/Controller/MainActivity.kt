@@ -1,5 +1,6 @@
 package com.surya.coderswag.Controller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.surya.coderswag.Adapters.CategoryAdapter
 import com.surya.coderswag.Adapters.CategoryRecyclerAdapter
 import com.surya.coderswag.Model.Category
+import com.surya.coderswag.Model.Product
 import com.surya.coderswag.R
 import com.surya.coderswag.Services.DataService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,7 +26,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //adapter = CategoryAdapter(this, DataService.categories)
-        adapter = CategoryRecyclerAdapter(this,DataService.categories)
+        //adapter = CategoryRecyclerAdapter(this,DataService.categories) this is without the  on-click
+        adapter = CategoryRecyclerAdapter(this, DataService.categories){ category ->
+            //println(category.title)
+            val productIntent= Intent(this, ProductsActivity :: class.java)
+            startActivity(productIntent)
+        }
         categoryListView.adapter = adapter
 
         /*categoryListView.setOnItemClickListener { parent, view, position, id ->
@@ -37,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         categoryListView.layoutManager = layoutManager
         categoryListView.setHasFixedSize(true)
+
+
 
     }
 }
