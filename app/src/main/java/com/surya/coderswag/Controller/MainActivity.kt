@@ -14,6 +14,7 @@ import com.surya.coderswag.Model.Category
 import com.surya.coderswag.Model.Product
 import com.surya.coderswag.R
 import com.surya.coderswag.Services.DataService
+import com.surya.coderswag.Utilities.EXTRA_CATEGORY
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         adapter = CategoryRecyclerAdapter(this, DataService.categories){ category ->
             //println(category.title)
             val productIntent= Intent(this, ProductsActivity :: class.java)
+            productIntent.putExtra(EXTRA_CATEGORY, category.title)
             startActivity(productIntent)
         }
         categoryListView.adapter = adapter
